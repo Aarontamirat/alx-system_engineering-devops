@@ -15,7 +15,7 @@ echo "server {
    root /var/www/html;
    index index.html;
    location /redirect_me {
-      return 301 https://www.youtube.com/watch?v=rbadZW_lXJc&list=RDGMEM_v2KDBP3d4f8uT-ilrs8fQVMrbadZW_lXJc&start_radio=1;
+      return 301 https://www.tutorialspoint.com/categories/development;
    }
    error_page 404 /404.html;
    location = /404.html{

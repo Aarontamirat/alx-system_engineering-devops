@@ -39,11 +39,11 @@ defaults
   timeout server 15s
   timeout http-request 10s
 
-frontend th3gr00t-tech-frontend
+frontend web-frontend
     bind *:80
-    default_backend th3gr00t-tech-backend
+    default_backend web-backend
 
-backend th3gr00t-tech-backend
+backend web-backend
     balance roundrobin
     server 56638-web-01 54.160.115.113:80 check
     server 56638-web-02 100.25.221.226:80 check

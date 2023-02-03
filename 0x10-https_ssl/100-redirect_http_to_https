@@ -1,41 +1,34 @@
 global
-    log     /dev/log local0
-    maxconn 2048
-    user    haproxy
-    group   haproxy
-    tune.ssl.default-dh-param 2048
+  maxconn 2048
+  tune.ssl.default-dh-param 2048
 
 defaults
-    log     global
-    mode    http
-    option  httplog
-    option  dontlognull
-    retries 3
-    option  redispatch
-    timeout connect  5000
-    timeout client  10000
-    timeout server  10000
-    option  forwardfor
-    option  http-server-close
+  mode http
+  option forwardfor
+  option http-server-close
+  timeout client 15s
+  timeout connect 10s
+  timeout server 15s
+  timeout http-request 10s
 
-frontend www-http
-    bind   0.0.0.0:80
+frontend web-http
+    bind *:80
     reqadd X-Forwarded-Proto:\ http
-    default_backend www-backend
+    default_backend web-backend
     redirect scheme https code 301 if !{ ssl_fc }
 
-frontend www-https
-    bind   0.0.0.0:443 ssl crt /etc/haproxy/certs/www.bdbnb.site.pem
-    reqadd X-Forwarded-Proto:\ https
-    acl    letsencrypt-acl path_beg /.well-known/acme-challenge/
-    use_backend letsencrypt-backend if letsencrypt-acl
-    default_backend www-backend
+frontend web-https
+   bind *:443 ssl crt /etc/haproxy/certs/aaronair.tech.pem
+   reqadd X-Forwarded-Proto:\ https
+   acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+   use_backend letsencrypt-backend if letsencrypt-acl
+   default_backend web-backend
 
-backend www-backend
-    balance  roundrobin
+backend web-backend
+    balance roundrobin
     redirect scheme https if !{ ssl_fc }
-    server 56638-web-01 54.160.115.113:80 check
-    server 56638-web-02 100.25.221.226:80 check
+    server 56638-web-01 18.206.232.201:80 check
+    server 56638-web-02 54.175.144.81:80 check
 
 backend letsencrypt-backend
     server letsencrypt 127.0.0.1:54321

@@ -45,8 +45,8 @@ frontend web-frontend
 
 backend web-backend
     balance roundrobin
-    server 56638-web-01 52.3.249.128:80 check
-    server 56638-web-02 54.175.134.95:80 check
+    server 56638-web-01 52.91.128.5:80 check
+    server 56638-web-02 18.234.80.81:80 check
 "
 
 # shellcheck disable=SC2154

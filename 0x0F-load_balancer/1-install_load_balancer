@@ -45,7 +45,7 @@ frontend web-frontend
 
 backend web-backend
     balance roundrobin
-    server 56638-web-01 3.84.237.79:80 check
+    server 56638-web-01 54.237.207.111:80 check
     server 56638-web-02 107.21.39.65:80 check
 "
 
